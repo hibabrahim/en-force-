@@ -1,0 +1,60 @@
+{% extends 'baseBack.html.twig' %}
+
+{% block title %}Reclamation{% endblock %}
+
+{% block content %}
+    <h1>Reclamation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reclamation.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ reclamation.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ reclamation.description }}</td>
+            </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ reclamation.type }}</td>
+            </tr>
+            <tr>
+                <th>Etat</th>
+                <td>{{ reclamation.etat }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ reclamation.createdAt ? reclamation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Id_user</th>
+                <td>{{ reclamation.idUser }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_reclamation_index') }}">back to list</a>
+
+    
+
+    {{ include('reclamation/_delete_form_back.html.twig') }}
+     <div class="container mt-4">
+        <h2>Response</h2>
+
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Response :</h5>
+                <p class="card-text">{{reponse.description}}</p>
+                <p class="card-text"><small class="text-muted">Admin: John Doe | Created At: {{ reponse.createdAt ? reponse.createdAt|date('Y-m-d H:i:s') : '' }}</small></p>
+            </div>
+        </div>
+
+        <!-- Add more responses as needed -->
+
+    </div>
+{% endblock %}
