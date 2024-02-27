@@ -1,0 +1,41 @@
+{% extends "admintemplate/base.html.twig" %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Edit User</h1>
+    </div>
+
+    <!-- Content Row -->
+    <div class="row">
+
+        <!-- Update Form Column -->
+        <div class="col-lg-12 mb-4">
+
+            <!-- Update Form Card -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Update User Information</h6>
+                </div>
+                <div class="card-body">
+                    {{ include('user/form.html.twig', {'button_label': 'Update'}) }}
+                </div>
+            </div>
+
+            <!-- Back to List Button -->
+            <a href="{{ path('app_user_index') }}" class="btn btn-secondary btn-icon-split">
+                <span class="icon text-white-50">
+                    <i class="fas fa-arrow-left"></i>
+                </span>
+                <span class="text">Back to List</span>
+            </a>
+
+            <!-- Delete User Section -->
+            {{ include('user/delete.html.twig') }}
+
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,104 @@
+{# templates/user/signup.html.twig #}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Transparent Login Form Using HTML & CSS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Dosis" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('style.css') }}">
+</head>
+<body>
+   
+<div class="bg-img">
+    <div class="content form-spacing">
+        <header>SignUp Form</header>
+        <form  action="{{ path('app_new') }}" method="POST" novalidate>
+    {{ form_start(form) }}
+    <div class="field">
+        <span class="fa fa-user"></span>
+        {{ form_widget(form.cin, { 'required': true, 'attr': {'placeholder': 'CIN'} }) }}
+        {{ form_errors(form.cin) }} {# Display validation errors for CIN field #}
+    </div>
+    <div class="field">
+        <span class="fa fa-phone"></span>
+        {{ form_widget(form.tel, { 'required': true, 'attr': {'placeholder': 'Phone'} }) }}
+        {{ form_errors(form.tel) }} {# Display validation errors for Phone field #}
+    </div>
+    <div class="field">
+        <span class="fa fa-user"></span>
+        {{ form_widget(form.nom, { 'required': true, 'attr': {'placeholder': 'Last Name'} }) }}
+        {{ form_errors(form.nom) }} {# Display validation errors for Last Name field #}
+    </div>
+    <div class="field">
+        <span class="fa fa-user"></span>
+        {{ form_widget(form.prenom, { 'required': true, 'attr': {'placeholder': 'First Name'} }) }}
+        {{ form_errors(form.prenom) }} {# Display validation errors for First Name field #}
+    </div>
+    <div class="field">
+        <span class="fa fa-user"></span>
+        {{ form_widget(form.role, { 'required': true, 'attr': {'placeholder': 'Role'} }) }}
+        {{ form_errors(form.role) }} {# Display validation errors for Role field #}
+    </div>
+    <div class="field">
+        <span class="fa fa-envelope"></span>
+        {{ form_widget(form.email, { 'required': true, 'attr': {'placeholder': 'Email'} }) }}
+        {{ form_errors(form.email) }} {# Display validation errors for Email field #}
+    </div>
+    <div class="field">
+        <span class="fa fa-lock"></span>
+        {{ form_widget(form.password, { 'required': true, 'attr': {'placeholder': 'Password'} }) }}
+        {{ form_errors(form.password) }} {# Display validation errors for Password field #}
+        <span class="show">SHOW</span>
+    </div>
+    <div class="field">
+        <input type="submit" value="Sign Up">
+    </div>
+    {{ form_end(form) }}
+</form>
+
+        <div class="login">Or SignUp with</div>
+        <div class="links">
+            <div class="facebook">
+                <i class="fab fa-facebook-f"><span>Facebook</span></i>
+            </div>
+            <div class="instagram">
+                <i class="fab fa-instagram"><span>Instagram</span></i>
+            </div>
+        </div>
+        <div class="signup">Already have an account?
+            <a href="{{ path('app_user_index') }}">Login</a>
+        </div>
+    </div>
+</div>
+<footer id="main-footer">
+    <div class="footer-content container">
+        <p>
+            Copyright &copy; 2021 All Rights Reserved
+        </p>
+        <div class="social">
+            <a href="https://github.com/jagadeeshpj" target="__blank"  style="color: #fff;">
+                <i class="fab fa-github"></i>
+            </a>
+
+            <a href="https://www.linkedin.com/in/p-jagadeesh-22923b18b/" target="__blank"  style="color: #fff;">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            
+            <a href="https://www.instagram.com/jagadeesh2001/" target="__blank"  style="color: #fff;">
+                <i class="fab fa-instagram"></i>
+            </a>
+
+            <a href="https://www.facebook.com/jagadeesh.PJ.13/" target="__blank"  style="color: #fff;">
+                <i class="fab fa-facebook"></i>
+            </a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
