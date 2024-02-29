@@ -1,11 +1,16 @@
 <?php
+
 namespace App\Form;
+
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class UserType extends AbstractType
 {
@@ -42,25 +47,14 @@ class UserType extends AbstractType
                     new Assert\NotBlank(['message' => 'Please enter your first name']),
                 ],
             ])
-            ->add('role', ChoiceType::class, [
-                'label' => 'Role',
-                'choices' => [
-                    'Admin' => 'admin',
-                    'Tourist' => 'tourist',
-                ],
-                'placeholder' => 'Choose your role',
-                'constraints' => [
-                    new Assert\NotBlank(['message' => 'Please select your role']),
-                ],
-            ])
-            ->add('email', null, [
+            ->add('email', EmailType::class, [
                 'label' => 'Email',
                 'constraints' => [
                     new Assert\NotBlank(['message' => 'Please enter your email']),
                     new Assert\Email(['message' => 'Please enter a valid email address']),
                 ],
             ])
-            ->add('password', null, [
+            ->add('password', PasswordType::class, [
                 'label' => 'Password',
                 'constraints' => [
                     new Assert\NotBlank(['message' => 'Please enter your password']),
@@ -69,8 +63,8 @@ class UserType extends AbstractType
                         'minMessage' => 'Your password must be at least {{ limit }} characters long',
                     ]),
                 ],
-            ])
-        ;
+            ]);
+
     }
 
     public function configureOptions(OptionsResolver $resolver): void

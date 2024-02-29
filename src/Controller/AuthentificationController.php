@@ -54,7 +54,7 @@ class AuthentificationController extends AbstractController
             $this->get('security.token_storage')->setToken($token);
 
             // Redirect based on user role
-            if (in_array('admin', $user->getRoles(), true)) {
+            if (in_array('ROLE_admin', $user->getRoles(), true)) {
                 return $this->redirectToRoute('app_admin');
             } else {
                 return $this->redirectToRoute('index');

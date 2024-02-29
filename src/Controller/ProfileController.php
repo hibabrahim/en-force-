@@ -18,9 +18,9 @@ class ProfileController extends AbstractController
     #[Route('/admin',name:"app_admin")]
     public function admin():Response
     {
-        $user = $this->getUser();
+        $users = $this->getUser();
         return $this->render('admintemplate/base.html.twig',
-        ['user' => $user,]);
+        ['users' => $users,]);
     }
     
 }

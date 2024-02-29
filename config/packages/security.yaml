@@ -22,7 +22,7 @@ security:
             provider: db_provider
             # Other firewall configurations...
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_admin}
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:

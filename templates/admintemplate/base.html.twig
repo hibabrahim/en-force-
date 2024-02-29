@@ -32,6 +32,29 @@
         <!-- Custom scripts for all pages-->
         <script src="{{ asset('assets/admin/js/sb-admin-2.min.js') }}"></script>
         <script src=""></script>
+        <!-- jQuery -->
+        <script src="{{ asset('assets/admin/vendor/jquery/jquery.min.js') }}"></script>
+        <script>
+            $(document).ready(function() {
+                // Handle click event on the "User" link in the sidebar
+                $('a[href="{{ path('app_user_index') }}"]').click(function(e) {
+                    e.preventDefault(); // Prevent default link behavior
+
+                    // Fetch user data using AJAX
+                    $.ajax({
+                        url: "{{ path('app_user_index') }}", // URL to fetch user data
+                        type: "GET",
+                        success: function(response) {
+                            // Update the body content with the user data
+                            $('#content').html(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.error(error); // Log any errors to the console
+                        }
+                    });
+                });
+            });
+        </script>
     {% endblock %}
 </body>
 </html>

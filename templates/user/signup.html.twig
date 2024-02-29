@@ -39,11 +39,7 @@
         {{ form_widget(form.prenom, { 'required': true, 'attr': {'placeholder': 'First Name'} }) }}
         {{ form_errors(form.prenom) }} {# Display validation errors for First Name field #}
     </div>
-    <div class="field">
-        <span class="fa fa-user"></span>
-        {{ form_widget(form.role, { 'required': true, 'attr': {'placeholder': 'Role'} }) }}
-        {{ form_errors(form.role) }} {# Display validation errors for Role field #}
-    </div>
+    
     <div class="field">
         <span class="fa fa-envelope"></span>
         {{ form_widget(form.email, { 'required': true, 'attr': {'placeholder': 'Email'} }) }}

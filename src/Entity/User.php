@@ -28,9 +28,11 @@ class User implements UserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
-
+ 
     #[ORM\Column(length: 255)]
-    private ?string $role = null;
+    private string $role;
+
+
 
     #[ORM\Column(length: 255)]
     private ?string $email = null;
@@ -96,12 +98,13 @@ class User implements UserInterface
         return $this->role;
     }
 
-    public function setRole(string $role): static
+    public function setRole(?string $role): self
     {
         $this->role = $role;
-
+        
         return $this;
     }
+
 
     public function getEmail(): ?string
     {
@@ -134,7 +137,7 @@ class User implements UserInterface
     public function getRoles(): array
     {
         // Return an array of roles for the user
-        return [$this->role];; // For example, assuming all users have the ROLE_USER role
+        return [$this->role]; // For example, assuming all users have the ROLE_USER role
     }
 
     public function getSalt()

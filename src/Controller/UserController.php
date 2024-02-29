@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends AbstractController
 {
-    #[Route('/user_findall', name: 'app_user_index')]
+    #[Route('/admin/user_findall', name: 'app_user_index')]
     public function index(UserRepository $userRepository): Response
     {
         $users = $userRepository->findAll();
@@ -22,23 +22,33 @@ class UserController extends AbstractController
         ]);
     }
     #[Route('/new', name: 'app_new')]
-    public function new(Request $request, EntityManagerInterface $entity): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
     $user = new User();
     $form = $this->createForm(UserType::class, $user);
     $form->handleRequest($request);
 
     if ($form->isSubmitted() && $form->isValid()) {
-        $entity->persist($user);
-        $entity->flush();
-        return $this->redirectToRoute('app_login', []);
+        // Set the role based on email domain
+        $email = $user->getEmail();
+        $domain = explode('@', $email)[1] ?? '';
+        $role = (strpos($domain, 'esprit.tn') !== false) ? 'ROLE_admin' : 'ROLE_tourist';
+        
+        // Set the role for the user
+        $user->setRole($role);
+
+        // Persist and flush the user entity
+        $entityManager->persist($user);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_login');
     }
 
-    return $this->renderForm('user/signup.html.twig', [
-        'user' => $user,
-        'form' => $form,
+    return $this->render('user/signup.html.twig', [
+        'form' => $form->createView(),
     ]);
 }
+
 
 
     #[Route('show/{id}',name:'app_showuser')]
@@ -71,7 +81,7 @@ class UserController extends AbstractController
         $user=$userRepository->find($id);
         $entityManager->remove($user);
         $entityManager->flush();
-        return $this->redirectToRoute('app_user_index');
+        return $this->redirectToRoute('app_admin');
 
     }
 
