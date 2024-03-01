@@ -45,5 +45,33 @@ class ProfileController extends AbstractController
         return $this->render('admintemplate/base.html.twig',
         ['users' => $users,]);
     }
+    #[Route('AdminProfile', name:"admin_profile")]
+        
+        public function Adminprofile(Request $request): Response
+        {
+            // Get the currently logged-in user
+            $users = $this->getUser();
+    
+            // Create a form instance for the User entity
+            $form = $this->createForm(UserProfileType::class, $users);
+    
+            // Handle form submission and validation
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                // Save the changes to the database
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($users);
+                $entityManager->flush();
+    
+                // Redirect to the profile page after successful form submission
+                return $this->redirectToRoute('admin_profile');
+            }
+    
+            // Render the profile template with the form
+            return $this->render('admintemplate/adminprofile.html.twig', [
+                'form' => $form->createView(),
+                'users'=>$users,
+            ]);
+        }
     
 }

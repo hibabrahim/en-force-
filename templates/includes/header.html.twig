@@ -32,7 +32,7 @@
                         <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ app.user.nom }}</a>
                         <div class="dropdown-menu m-0">
                             <a href="{{path('user_profile')}}" class="dropdown-item">Edit Profile</a>
-                            <a href="#" class="dropdown-item">Logout</a>
+                            <a href="{{path('app_logout')}}" class="dropdown-item">Logout</a>
                         </div>
                     </div>
                 {% else %}

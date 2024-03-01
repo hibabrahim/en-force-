@@ -1,0 +1,51 @@
+{% extends "admintemplate/base.html.twig" %}
+
+{% block title %}Profile{% endblock %}
+
+{% block body %}
+    <!-- Page Content -->
+    <div id="content">
+        <div class="container-fluid">
+            <!-- Page Heading -->
+            <h1 class="h3 mb-4 text-gray-800">Admin Profile</h1>
+
+            <div class="row">
+                <div class="col-lg-8"> <!-- Adjust column width as needed -->
+                    <div class="profile">
+                        {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                            <div class="mb-3">
+                                {{ form_label(form.nom, 'Nom', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.nom) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_label(form.prenom, 'Prénom', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.prenom) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_label(form.cin, 'CIN', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.cin, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.cin) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_label(form.tel, 'Téléphone', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.tel, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.tel) }}
+                            </div>
+                            <div class="mb-3">
+                                {{ form_label(form.password, 'Mot de passe', {'label_attr': {'class': 'form-label'}}) }}
+                                {{ form_widget(form.password, {'attr': {'class': 'form-control'}}) }}
+                                {{ form_errors(form.password) }}
+                            </div>
+                            <!-- Add more profile fields here if needed -->
+
+                            <button type="submit" class="btn btn-primary">Modifier</button>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Page Content -->
+{% endblock %}

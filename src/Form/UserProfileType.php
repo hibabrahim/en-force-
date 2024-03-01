@@ -83,6 +83,10 @@ class UserProfileType extends AbstractType
                 'label' => 'Save Changes',
                 'attr' => ['class' => 'btn btn-primary'],
             ]);
+
+        if (strpos($options['data']->getEmail(), '@esprit.tn') !== false) {
+            $builder->remove('email');
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver)

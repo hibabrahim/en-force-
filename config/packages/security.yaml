@@ -20,7 +20,9 @@ security:
             lazy: true
             # Specify the custom user provider here
             provider: db_provider
-            # Other firewall configurations...
+            logout:
+                path: "app_logout"
+                target: "app_login"  # Redirect to the login page after logout
     access_control:
         - { path: ^/admin, roles: ROLE_admin}
         # - { path: ^/profile, roles: ROLE_USER }
