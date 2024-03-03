@@ -31,6 +31,26 @@ class ReclamationRepository extends ServiceEntityRepository
            ->getResult()
         ;
     }
+    public function countRecentReclamations(int $iduser, int $days)
+{
+    $qb = $this->createQueryBuilder('r')
+        ->select('COUNT(r)')
+        ->andWhere('r.id_user = :user')
+        ->andWhere('r.createdAt >= :since')
+        ->setParameter('user', $iduser)
+        ->setParameter('since', (new \DateTime())->modify("-$days days"));
+
+    return $qb->getQuery()->getSingleScalarResult();
+}
+public function search($value): array
+{
+    return $this->createQueryBuilder('r')
+        ->andWhere('r.titre LIKE :val')
+        ->orWhere('r.description LIKE :val')
+        ->setParameter('val', '%' . $value . '%')
+        ->getQuery()
+        ->getResult();
+}
 
 //    public function findOneBySomeField($value): ?Reclamation
 //    {

@@ -2,33 +2,77 @@
 
 {% block title %}Reponse{% endblock %}
 
-{% block body %}
-    <h1>{{reclamation.titre}}</h1>
+{% block content %}
+<section>
+  <div class="container my-5">
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">Réponse à la Réclamation</h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-4 font-weight-bold">Description:</div>
+              <div class="col-md-8">{{ reponse.description }}</div>
+            </div>
+            <hr>
+            <div class="row">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ reponse.id }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ reponse.description }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ reponse.createdAt ? reponse.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Id_user</th>
-                <td>{{ reponse.idUser }}</td>
-            </tr>
-        </tbody>
-    </table>
+            
+              <div class="col-md-4 font-weight-bold">Répondu Par:</div>
+              <div class="col-md-8">
+                <div class="d-flex align-items-center">
+                  <div class="rounded-circle bg-primary text-white px-2 py-1 mr-2">Ayoub</div>
+                  
+                  <div>
+                  </div>
+                  </div>
+                  <div class="col-md-8">
+                  <div class="d-flex align-items-center">
+                  <div class="text-muted">Ayoub.sellami@esprit.tn</div>
+                  </div>
+                 </div>
+                  </div>
+                  
+                    
 
-    <a href="{{ path('app_reponse_index') }}">back to list</a>
+                </div>
+                
+              </div>
+              </div>
+              <div class="row">
+<div class="row">
+<div class="col-md-4 font-weight-bold">Noter la reponse :</div>
+ <div class="col-md-8">
+ 
+    <link rel="stylesheet" href="{{ asset('fontawesome-free-5.15.4-web/css/all.min.css') }}">
+          
+    {% for i in 1..5 %}
+        {% if average_rating >= i %}
+            <span class="fa fa-star checked"></span>
+        {% else %}
+            <span class="fa fa-star"></span>
+        {% endif %}
+    {% endfor %}
+    {% if average_rating is not null %}
+        <span class="average-rating">({{ average_rating }})</span>
+    {% endif %}
+    <form method="post" action="{{ path('app_reponse_show', {'id': reponse.id}) }}">
+        {{ form_widget(rating_form) }}
+        <button type="submit">Rate</button>
+    </form>
+</div>
 
-    <a href="{{ path('app_reponse_edit', {'id': reponse.id}) }}">edit</a>
-
-    {{ include('reponse/_delete_form.html.twig') }}
+          </div>
+          </div>
+          </div>
+          <div class="card-footer text-center">
+            <a href="{{ path('app_reclamation_index_front') }}" class="btn btn-primary">Retour vers les Réclamations</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

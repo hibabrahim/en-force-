@@ -12,10 +12,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Knp\Component\Pager\PaginatorInterface;
 
 #[Route('/reclamation')]
 class ReclamationController extends AbstractController
 {
+    #[Route('/search', name: 'app_search', methods: ['GET','POST'])]
+    public function search(Request $request,ReclamationRepository $reclamationRepository): Response
+    {
+        $search=$request->request->get('search');
+        return $this->render('reclamation/index.html.twig', [
+            'reclamations' => $reclamationRepository->search($search),
+        ]);
+    }
     #[Route('/', name: 'app_reclamation_index', methods: ['GET'])]
     public function index(ReclamationRepository $reclamationRepository): Response
     {
@@ -24,25 +33,49 @@ class ReclamationController extends AbstractController
         ]);
     }
     #[Route('/Front', name: 'app_reclamation_index_front', methods: ['GET'])]
-    public function indexFront(ReclamationRepository $reclamationRepository): Response
+    public function indexFront(PaginatorInterface $paginator,ReclamationRepository $reclamationRepository, EntityManagerInterface $entityManager,Request $request): Response
     {
+        $reclamations=$reclamationRepository->findByidUser(1);
+       
+        $pagination = $paginator->paginate(
+            $reclamations,
+            $request->query->getInt('page', 1),
+            3
+        );
         return $this->render('reclamation/indexFront.html.twig', [
-            'reclamations' => $reclamationRepository->findByIdUser(1),
+            'reclamations' => $pagination,
         ]);
     }
 
     #[Route('/new', name: 'app_reclamation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request,PaginatorInterface $paginator, EntityManagerInterface $entityManager,ReclamationRepository $reclamationRepository): Response
     {
         $reclamation = new Reclamation();
         $form = $this->createForm(ReclamationType::class, $reclamation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $count = $reclamationRepository->countRecentReclamations(1, 3);
+            if ($count >= 3) {
+                // Redirect the user back to the new reclamation page with an error message
+                $this->addFlash('error', 'You have already submitted the maximum number of reclamations allowed in the last 3 days.');
+                $reclamations=$reclamationRepository->findByidUser(1);
+       
+                $pagination = $paginator->paginate(
+                    $reclamations,
+                    $request->query->getInt('page', 1),
+                    3
+                );
+                return $this->redirectToRoute('app_reclamation_index_front', [
+                    'reclamations' => $pagination], Response::HTTP_SEE_OTHER
+              );
+            }
             $reclamation->setEtat("Not Treated");
             $d=new \DateTimeImmutable();
             $reclamation->setCreatedAt($d);
             $reclamation->setIdUser(1);
+            $cleaned=\ConsoleTVs\Profanity\Builder::blocker($reclamation->getDescription())->filter();
+            $reclamation->setDescription($cleaned);
             $entityManager->persist($reclamation);
             $entityManager->flush();
 

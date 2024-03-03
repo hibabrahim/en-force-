@@ -3,8 +3,49 @@
 {% block title %}Reclamation Index{% endblock %}
 
 {% block content %}
-    <h1 class="mt-4 mb-4">Reclamation Index</h1>
+<style>
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
 
+.pagination-container ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.pagination-container li {
+  margin: 0 5px;
+}
+
+.pagination-container li a {
+  display: block;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  text-decoration: none;
+  color: #333;
+}
+
+.pagination-container li.active a,
+.pagination-container li a:hover {
+  background-color: #333;
+  color: #fff;
+  border-color: #333;
+}
+
+</style>
+
+    <h1 class="mt-4 mb-4">Reclamation Index</h1>
+{% for message in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -29,7 +70,7 @@
                             <a href="{{ path('app_reclamation_edit', {'id': reclamation.id}) }}" class="btn btn-primary btn-sm">Edit</a>
                             {{ include('reclamation/_delete_form.html.twig') }}
                             {% if reclamation.etat == "Done" %}
-                             <a href="{{ path('app_reclamation_show', {'id': reclamation.id}) }}" class="btn btn-info btn-sm">Details</a>
+                            <a href="{{ path('app_reponse_show', {'id': reclamation.reponse.id}) }}" class="btn-voir-tous">Voir Reponse</a>
                              {% endif %}
                         </td>
                     </tr>
@@ -41,6 +82,9 @@
             </tbody>
         </table>
     </div>
+    <nav class="pagination-container">
+				{{ knp_pagination_render(reclamations) }}
+			</nav>
 
     <a href="{{ path('app_reclamation_new') }}" class="btn btn-success">Create New</a>
 {% endblock %}

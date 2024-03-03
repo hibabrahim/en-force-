@@ -52,6 +52,7 @@
                 <p class="card-text">{{reponse.description}}</p>
                 <p class="card-text"><small class="text-muted">Admin: John Doe | Created At: {{ reponse.createdAt ? reponse.createdAt|date('Y-m-d H:i:s') : '' }}</small></p>
             </div>
+             <a style="color:blue;" href="{{ path('app_reponse_edit', {'id': reponse.id}) }}">edit</a>
         </div>
 
         <!-- Add more responses as needed -->
