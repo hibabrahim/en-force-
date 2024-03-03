@@ -19,7 +19,7 @@ security:
             provider: db_provider
             guard: 
                 authenticators: # <- Corrected option name
-                    #- App\Security\GoogleAuthenticator # <- Indented properly
+                    - App\Security\GoogleAuthenticator # <- Indented properly
                     - App\Security\MyFacebookAuthenticator
                 
             logout:

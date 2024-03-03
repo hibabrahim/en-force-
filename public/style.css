@@ -118,8 +118,8 @@
             margin: 0 0 20px 0;
         }
         .facebook,
-        .google {
-            width: 150%;
+        .instagram {
+            width: 100%;
             height: 45px;
             line-height: 45px;
             margin-left: 10px;
@@ -129,15 +129,15 @@
             background: #4267b2;
             border: 1px solid #3e61a8;
         }
-        .google {
-            background: #efeeef;
-            border: 1px solid #2040df;
+        .instagram {
+            background: #efe9eb;
+            border: 1px solid #5320df;
         }
         .facebook:hover {
             background: #3e61a8;
         }
-        .google:hover {
-            background: #e2dbdd;
+        .instagram:hover {
+            background: #e9e2e4;
         }
         .links i {
             font-size: 17px;
