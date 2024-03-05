@@ -441,3 +441,12 @@
     padding-right: 0;
     border-right: none;
 }
+/* styles.css */
+.form-control {
+    border-radius: 0;
+    border-color: #ccc;
+}
+
+.row {
+    margin-bottom: 10px;
+}

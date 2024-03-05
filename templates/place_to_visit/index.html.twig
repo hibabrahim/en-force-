@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PlaceToVisit index{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">PlaceToVisit Index</h1>
+        {# Search Form #}
+        <form action="{{ path('app_place_to_visit_index') }}" method="GET" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search..." value="{{ searchQuery }}">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom lieu</th>
+                <th>Description</th>
+                <th>Address</th>
+                <th>Coordonnee geo</th>
+                <th>Image</th>
+                <th>Destination</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for place_to_visit in pagination %}
+                <tr>
+                    <td>{{ place_to_visit.id }}</td>
+                    <td>{{ place_to_visit.nomLieu }}</td>
+                    <td>{{ place_to_visit.description }}</td>
+                    <td>{{ place_to_visit.address }}</td>
+                    <td>{{ place_to_visit.cordonneeGeo }}</td>
+                    <td>{{ place_to_visit.image }}</td>
+                    <td>{{ place_to_visit.destination }}</td>
+
+                    <td>
+                        <a href="{{ path('app_place_to_visit_show', {'id': place_to_visit.id}) }}" class="btn btn-primary">Show</a>
+                        <a href="{{ path('app_place_to_visit_edit', {'id': place_to_visit.id}) }}" class="btn btn-secondary">Edit</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="8">No records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ path('app_place_to_visit_new') }}" class="btn btn-success">Create new</a>
+
+
+        {# Pagination Buttons #}
+        <nav aria-label="Pagination">
+            <ul class="pagination justify-content-center">
+                {% if pagination.currentPageNumber != 1 %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path('app_place_to_visit_index', {'page': 1}) }}">First</a>
+                    </li>
+                {% endif %}
+
+                {% for page in 1..pagination.pageCount %}
+                    <li class="page-item{% if page == pagination.currentPageNumber %} active{% endif %}">
+                        <a class="page-link" href="{{ path('app_place_to_visit_index', {'page': page}) }}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if pagination.currentPageNumber != pagination.pageCount %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path('app_place_to_visit_index', {'page': pagination.pageCount}) }}">Last</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+        <!-- Spinner Start -->
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <!-- Spinner End -->
+
+{% endblock %}

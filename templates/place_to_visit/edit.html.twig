@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit PlaceToVisit{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="mt-4">Edit PlaceToVisit</h1>
+
+        <div class="row">
+            <div class="col-md-6">
+                {{ include('place_to_visit/_form.html.twig', {'button_label': 'Update'}) }}
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <a href="{{ path('app_place_to_visit_index') }}" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

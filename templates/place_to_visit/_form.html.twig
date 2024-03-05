@@ -1,0 +1,27 @@
+{{ form_start(form) }}
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.nom_lieu) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.description) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.address) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.cordonnee_geo) }}
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        {{ form_row(form.image) }}
+    </div>
+    <div class="col-md-6">
+        {{ form_row(form.destination) }}
+    </div>
+</div>
+<button type="submit" class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

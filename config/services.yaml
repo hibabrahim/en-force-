@@ -6,14 +6,10 @@
 parameters:
 
 services:
-    # Autowire services from the Symfony container
+    # default configuration for services in *this* file
     _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
-
-    # Configure services for Doctrine
-    Doctrine\ORM\EntityManagerInterface: '@doctrine.orm.entity_manager'
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
