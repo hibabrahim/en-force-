@@ -1,6 +1,6 @@
 <div class="form-container">
-    <form action="{{ path('app_reclamation_new') }}" method="post" class="your-custom-form-class">
-        {{ form_start(form, {'attr': {'class': 'your-custom-form-start-class'}}) }}
+    <form action="{{ path('app_reclamation_new') }}" method="post" class="your-custom-form-class" novalidate="novalidate">
+        {{ form_start(form, {'attr': {'class': 'your-custom-form-start-class','novalidate':'novalidate'}}) }}
         
         <div class="form-row">
             <div class="form-group col-md-6">

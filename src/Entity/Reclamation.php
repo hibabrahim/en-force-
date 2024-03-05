@@ -27,6 +27,7 @@ class Reclamation
     private ?string $titre = null;
 
     #[ORM\Column(length: 500)]
+    #[Assert\NotBlank(message : "This field should not be blank.")]
     private ?string $description = null;
 
     #[ORM\Column(length: 255)]

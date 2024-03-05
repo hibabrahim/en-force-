@@ -13,6 +13,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Knp\Component\Pager\PaginatorInterface;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 #[Route('/reclamation')]
 class ReclamationController extends AbstractController
@@ -30,6 +32,32 @@ class ReclamationController extends AbstractController
     {
         return $this->render('reclamation/index.html.twig', [
             'reclamations' => $reclamationRepository->findAll(),
+        ]);
+    }
+    #[Route('/ExportPdf', name: 'app_reclamation_pdf', methods: ['GET', 'POST'])]
+    public function ExportPdf(ReclamationRepository $rep) :Response
+    {
+          $recs=$rep->findAll();
+          $options = new Options();
+        $options->set('defaultFont', 'Arial');
+
+        $dompdf = new Dompdf($options);
+        $html = $this->renderView('reclamation/pdf.html.twig', [
+            // Pass any necessary data to your Twig template
+            'recs' => $recs,
+        ]);
+
+        $dompdf->loadHtml($html);
+
+        // (Optional) Set paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to browser (inline view)
+        return new Response($dompdf->output(), 200, [
+            'Content-Type' => 'application/pdf',
         ]);
     }
     #[Route('/Front', name: 'app_reclamation_index_front', methods: ['GET'])]
