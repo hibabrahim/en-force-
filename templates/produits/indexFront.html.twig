@@ -1,0 +1,44 @@
+{% extends 'front.html.twig' %}
+
+{% block body %}
+    <div class="service">
+        <div class="container">
+            <div class="section-header text-center">
+                <div id="google_translate_element"></div>
+                <h4 style="margin-top:50px; margin-bottom:50px;">Liste des produits</h4>
+                <a href="{{ path('app_exposee_Front_page') }}">Aller à la liste des Exposees</a>
+            </div>
+
+            <!-- Sorting Buttons -->
+            <div class="text-center mb-4">
+                <a href="{{ path('app_produit_indexFront', {'sortBy': 'prixAscending'}) }}" class="btn btn-primary">Trier par prix croissant</a>
+                <a href="{{ path('app_produit_indexFront', {'sortBy': 'prixDescending'}) }}" class="btn btn-primary">Trier par prix décroissant</a>
+            </div>
+
+            <div class="row">
+                {% for produit in produits %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="service-item">
+                            <img src="{{ asset('uploads/' ~ produit.ressource)}}" style="width:360px; height:250px; " alt="">
+                            <p><strong style="color:#696969">Description:</strong> {{ produit.getDescription() }}</p>
+                            <p><strong style="color:#696969">Prix:</strong> {{ produit.getPrix() }}</p>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="col">
+                        <p class="text-center">Aucun produit trouvé.</p>
+                    </div>
+                {% endfor %}
+            </div>
+             {# -------------------------- Share ------------------------------------  #}
+         <div class="sharethis-inline-share-buttons"></div>
+         {# -------------------------- Share ------------------------------------  #}
+            {# Pagination controls #}
+            <div class="pagination justify-content-center">
+            </div>
+        </div>
+    </div>
+    <br>
+    <center><div class="btn px-10 py-10" {{knp_pagination_render(produits) }} </div></center>
+
+{% endblock %}

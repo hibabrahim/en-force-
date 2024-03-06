@@ -1,0 +1,38 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}Exposees{% endblock %}
+
+{% block body %}
+    <h1>Exposees</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ exposee.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom_e</th>
+                <td>{{ exposee.nomE }}</td>
+            </tr>
+            <tr>
+                <th>Date_debut</th>
+                <td>{{ exposee.dateDebut ? exposee.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Date_fin</th>
+                <td>{{ exposee.dateFin ? exposee.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Image_exposees</th>
+<td><img src="{{ asset('uploads/' ~exposee.imageExposees) }}" style="width:100px; height:100px;" alt=""></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_exposees_index') }}">back to list</a>
+
+    <a href="{{ path('app_exposees_edit', {'id': exposee.id}) }}">edit</a>
+
+    {{ include('exposees/_delete_form.html.twig') }}
+{% endblock %}

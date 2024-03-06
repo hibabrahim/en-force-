@@ -1,0 +1,69 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}
+    Exposees index
+{% endblock %}
+
+{% block body %}
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Image</th>
+                <th>Nom</th>
+                <th>Date Debut</th>
+                <th>Date fin</th>
+                <th>Produits</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for exposee in exposees %}
+            <tr>
+                <td>{{ exposee.id }}</td>
+                <td><img src="{{ asset('uploads/' ~ exposee.imageExposees) }}" style="width:100px; height:100px;" alt=""></td>
+                <td>{{ exposee.nomE }}</td>
+                <td>{{ exposee.dateDebut ? exposee.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ exposee.dateFin ? exposee.dateFin|date('Y-m-d') : '' }}</td>
+                <td>
+                  {% for produit in exposee.produitExistant %}
+    <p>{{ produit.description }}</p>
+    <p>{{ produit.prix }}</p>
+    <p>{{ produit.ressource }}</p>
+{% endfor %}
+
+                </td>
+                <td>
+                    <a href="{{ path('app_exposees_show', {'id': exposee.id}) }}">show</a>
+                    <a href="{{ path('app_exposees_edit', {'id': exposee.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+    <a href="{{ path('app_exposees_new') }}">Create new</a>
+    <p><a href="{{ path('generator_serviceExpo') }}" class="btn btn-primary px-3 py-1">PDF</a></p>
+<input id="search-input" type="form-control" placeholder="Search...">
+<title>AJAX Search Example</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#search-input").on("keyup", function() {
+                var value = $(this).val().toLowerCase();
+                $("table tr").filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+    </script>
+{% endblock %}
+

@@ -1,0 +1,11 @@
+{% extends 'back.html.twig' %}
+
+{% block title %}New Exposees{% endblock %}
+
+{% block body %}
+    <h1>Create new Exposees</h1>
+
+    {{ include('exposees/_form.html.twig') }}
+
+    <a href="{{ path('app_exposees_index') }}">back to list</a>
+{% endblock %}

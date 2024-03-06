@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LISTES DES EXPOSEES{% endblock %}</title>
+</head>
+<body>
+    <div>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom_e</th>
+                    <th>Date_debut</th>
+                    <th>Date_fin</th>
+                    <th>Image_exposees</th>
+                    <th>Produit</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for exposee in exposees %}
+                <tr>
+                    <td>{{ exposee.id }}</td>
+                    <td>{{ exposee.nomE }}</td>
+                    <td>{{ exposee.dateDebut ? exposee.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ exposee.dateFin ? exposee.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                    <td><img src="{{ asset('uploads/' ~ exposee.imageExposees) }}" style="width:100px; height:100px;" alt=""></td>
+                    <td>
+                        {% for produit in exposee.getProduitExistant %}
+                            <p>{{ produit.description }}</p>
+                            <p>{{ produit.prix }}</p>
+                            <p>{{ produit.ressource }}</p>
+                        {% endfor %}
+                    </td>
+                    <td><!-- Actions Column --></td> <!-- You might want to add actions here -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

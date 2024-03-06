@@ -1,0 +1,39 @@
+<img src="{{ asset('uploads/logo.jpg') }}"  style=" width:100px; height:100px;"alt="Description de votre image">
+{% block title %}<h1>LISTES DES PRODUITS</h1>{% endblock %}
+
+{% block body %}
+<div>
+<table  border="1">
+        <thead >
+            <tr>
+                <th>Id</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Ressource</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+            <tbody>
+                        
+            
+              {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.description }}</td>
+                <td>{{ produit.prix }}</td>
+                <td><img src= "{{ asset('uploads/' ~produit.Ressource)}}" style=" width:100px; height:100 px; " alt=""></td> 
+                <td>
+                    <a href="{{ path('app_produits_show', {'id': produit.id}) }}">show</a>
+                    <a href="{{ path('app_produits_edit', {'id': produit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+
+             </tbody>
+</table>
+</div>
+{% endblock %}
